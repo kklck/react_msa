@@ -1,0 +1,50 @@
+server:
+  port: 8003
+---
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+---
+spring:
+  application:
+    name: msa-gateway
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000" # 해당 주소에만 CORS 활성화
+            allowed-methods: "*" # 모든 HTTP 메소드 가능
+            allowed-headers: "*" # 모든 헤더 가능
+            allow-credentials: true # POST 에러 제거
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway GlobalFilter
+            preLogger: true
+            postLogger: true
+      routes:
+        - id: apply
+          uri: http://localhost:8001/
+          predicates:
+            - Path=/apply/**
+          filters:
+            - name: ApplyFilter
+              args:
+                baseMessage: Spring Cloud Gateway ApplyFilter
+                preLogger: true
+                postLogger: true
+        - id: payment
+          uri: http://localhost:8002/
+          predicates:
+            - Path=/payment/**
+          filters:
+            - name: PaymentFilter
+              args:
+                baseMessage: Spring Cloud Gateway PaymentFilter
+                preLogger: true
+                postLogger: true
