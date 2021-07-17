@@ -1,0 +1,11 @@
+server:
+  port: 8761
+---
+eureka:
+  instance:
+    hostname: msa-eureka
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: false # 자기 자신을 서비스화 false
+    fetch-registry: false # 서비스 목록을 로컬에 캐싱 false
