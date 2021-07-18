@@ -37,7 +37,7 @@
 
 ### 구성
 
-> <img src="C:\Users\Roy\AppData\Roaming\Typora\typora-user-images\image-20210718042642986.png" alt="image-20210718042642986" style="zoom: 150%;" />
+> ![image-20210718042642986](C:\Users\Roy\AppData\Roaming\Typora\typora-user-images\image-20210718042642986.png)
 >
 > **Eureka**
 >
