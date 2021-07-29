@@ -5,6 +5,15 @@ import apply from "./components/apply"
 import payment from "./components/payment"
 
 class App extends Component{
+
+    state = {
+        userDTO: {
+            age: 0,
+            count: 0,
+            result: 0
+        }
+    }
+
   render(){
     return (
         <Router>
