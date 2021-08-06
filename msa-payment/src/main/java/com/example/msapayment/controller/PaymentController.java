@@ -34,7 +34,7 @@ public class PaymentController {
 
 
   @PostMapping("calculate.do")
-  public Mono<String> calculate(@RequestBody UserDTO userDTO, Gson gson){
+  public UserDTO calculate(@RequestBody UserDTO userDTO, Gson gson){
 
     System.out.println("userDTO : " + userDTO);
     String json = gson.toJson(userDTO);
@@ -47,16 +47,28 @@ public class PaymentController {
             .bodyValue(userDTO)
             .retrieve()
             .bodyToMono(String.class)
-            .doOnSuccess(System.out::println)
+            .doOnSuccess(s -> System.out.println("성공 : " + s))
             .doOnError(System.out::println);
     monoCal.subscribe();
 
-    userDTO.setResult(Integer.parseInt(String.valueOf(monoCal)));
-    System.out.println(monoCal);
-//    System.out.println(userDTO);
-    return monoCal;
+    System.out.println(monoCal.block());
+    userDTO.setResult(Integer.parseInt(String.valueOf(monoCal.block())));
+    return userDTO;
 
 //    System.out.println(result.toString());
 //    return userDTO;
   }
+
+  @GetMapping("loadBalancedCallee.do")
+  public String Callee(){
+    System.out.println("payment 콜리 동작");
+    return "success";
+  }
+
+  @GetMapping("feign.do")
+  public String getFeign(){
+    System.out.println("콜러 페인 :");
+    return "success";
+  }
+
 }

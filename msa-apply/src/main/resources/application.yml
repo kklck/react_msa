@@ -6,8 +6,24 @@ spring:
     name: msa-apply
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
-    fetch-registry: true
-    register-with-eureka: true
     service-url:
       defaultZone : http://localhost:8761/eureka
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds : 1000
+      circuitBreaker:
+        requestVolumeThreshold: 1 # 1초 동안 {1}번 함수 실행할 때, 50% 이상 에러 발생 시 서킷 브레이크 오픈 / 기본 값 20
+
+msa-payment:
+  ribbon:
+    listOfServers: localhost:8002
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 1
