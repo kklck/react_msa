@@ -1,29 +1,23 @@
-import './App.css';
-import {Component} from "react";
-import {BrowserRouter as Router, Route} from "react-router-dom"
-import apply from "./components/apply"
-import payment from "./components/payment"
 
-class App extends Component{
+import './app.css';
+import { BrowserRouter, Route  } from 'react-router-dom';
+import React, { Component } from 'react';
+import SelectInsurance from './pages/selectInsurance';
+import Contraction from './pages/contraction';
 
-    state = {
-        userDTO: {
-            age: 0,
-            count: 0,
-            result: 0
-        }
-    }
+class App extends Component {
+  state = {
+    
+  }
 
-  render(){
+  render() {
     return (
-        <Router>
-          <div align="center">
-            <a href="/apply">청약 신청</a><br/>
-            <a href="/payment">청약 결제</a>
-          </div>
-          <Route path="/apply" component={apply}/>
-          <Route path="/payment" component={payment}/>
-        </Router>
+      <div className='app'>
+        <BrowserRouter>
+          <Route path="/" component={SelectInsurance} exact/>
+          <Route path="/contract" component={Contraction}/>
+        </BrowserRouter>
+      </div>
     );
   }
 }

@@ -24,6 +24,6 @@ hystrix:
 
 msa-payment:
   ribbon:
-    listOfServers: localhost:8002
+    listOfServers: localhost:8002, localhost:7777
     MaxAutoRetries: 0
     MaxAutoRetriesNextServer: 1
